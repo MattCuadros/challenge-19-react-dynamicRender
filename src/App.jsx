@@ -15,9 +15,14 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (name.trim() === "" || mail.trim() === "") {
+    if (name.trim() === "" || !isNaN(name) ) {
       alert("Debe ingresar los datos");
       return;
+    }
+
+    if (mail.trim() === ""){
+      alert ("Debe ingresar un email correcto")
+      return
     }
 
     setDataBase([...dataBase, { id: Date.now(), nombre: name, correo: mail }]);
@@ -27,7 +32,7 @@ const App = () => {
 
   const handleFilter = (e) => {
     const filterArray = dataBase.filter((item) =>
-      item.nombre.includes(e.target.value)
+      item.nombre.toLowerCase().includes(e.target.value)
     );
     setFilter(filterArray);
     setSearch(e.target.value);
