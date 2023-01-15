@@ -39,8 +39,8 @@ const App = () => {
     setName("");
     setMail("");
     Swal.fire(
-      'Buen trabajo!',
-      'Ingresaste un nuevo Colaborador!',
+      '¡Buen trabajo!',
+      '¡Ingresaste un nuevo Colaborador!',
       'success'
     )
   };

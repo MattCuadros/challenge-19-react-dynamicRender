@@ -1,4 +1,5 @@
 const SectionBaseDatos = ({dataBase}) => {
+  
   return (
     <section className="d-flex flex-column align-items-center w-100">
       <h2 className="m-4">Base Datos Colaboradores</h2>
