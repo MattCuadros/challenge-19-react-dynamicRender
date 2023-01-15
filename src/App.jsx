@@ -1,64 +1,55 @@
-import { useState } from 'react'
-import { BaseColaboradores } from './components/baseDatos'
+import { useState } from "react";
+import SectionBaseDatos from "./components/SectionBaseDatos";
+import { BaseColaboradores } from "./components/baseDatos";
+import FilterData from "./components/FilterData";
+import Form from "./components/Form";
+import Navbar from "./components/Navbar";
 
-const App=()=>{
+const App = () => {
+  const [dataBase, setDataBase] = useState(BaseColaboradores);
+  const [name, setName] = useState("");
+  const [mail, setMail] = useState("");
+  const [filtered, setFilter] = useState(null);
+  const [search, setSearch] = useState("");
 
-  const[dataBase, setDataBase]=useState(BaseColaboradores)
-  
-return (
-  <div className="container-fluid m-2">
-    <nav className="d-flex justify-content-between border border-light p-2">
-      <h1>Listado Colaboradores</h1>
-      <input
-        type="search"
-        className="form-control me-2 w-25"
-        placeholder="Buscar por Nombre"
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (name.trim() === "" || mail.trim() === "") {
+      alert("Debe ingresar los datos");
+      return;
+    }
+
+    setDataBase([...dataBase, { id: Date.now(), nombre: name, correo: mail }]);
+    setName("");
+    setMail("");
+  };
+
+  const handleFilter = (e) => {
+    const filterArray = dataBase.filter((item) =>
+      item.nombre.includes(e.target.value)
+    );
+    setFilter(filterArray);
+    setSearch(e.target.value);
+  };
+
+  return (
+    <div className="container-fluid m-2 d-flex flex-column align-items-center">
+      <Navbar search={search} handleFilter={handleFilter} />
+
+      <Form
+        name={name}
+        mail={mail}
+        setName={setName}
+        setMail={setMail}
+        handleSubmit={handleSubmit}
       />
-    </nav>
 
-    {/* <form className='border p-4 m-5'>
-      <div className='mb-3'>
-        <h2>Ingreso de Colaboradores</h2>
-      </div>
-      <div>
-        <label htmlFor="">Nombre Colaborador:</label>
-        <input type="text" className='form-control' placeholder='Ingrese Nombre'/>
-        <label htmlFor="">Apellido Colaborador:</label>
-        <input type="text" className='form-control' placeholder='Ingrese Apellido'/>
-        <label htmlFor="">Email Colaborador:</label>
-        <input type="email" className='form-control' placeholder='Ingrese E-mail'/>
-        <button type="submit" className='btn btn-success my-3'>Ingresar</button>
-      </div>
-    </form> */}
+      {filtered && search != "" ? <FilterData filtered={filtered} /> : null}
 
-    <section className="d-flex flex-column align-items-center">
-      <h2 className="m-4">Base Datos Colaboradores</h2>
+      <SectionBaseDatos dataBase={dataBase} />
+    </div>
+  );
+};
 
-      <table className="table table-hover table-striped table-dark text-center w-75">
-        <thead className="">
-          <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>E-mail</th>
-          </tr>
-        </thead>
-        <tbody className="table-group-divider">
-          {dataBase.map((item) => (
-            <tr key={item.id}>
-              {" "}
-              <td></td>
-              <td>Matias</td>
-              <td>Cuadros</td>
-              <td>mcuadrose@gmail.com</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
-  </div>
-);
-}
-
-
-export default App
+export default App;
