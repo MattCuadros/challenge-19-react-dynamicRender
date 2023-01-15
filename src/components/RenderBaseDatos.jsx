@@ -1,4 +1,4 @@
-const SectionBaseDatos = ({dataBase}) => {
+const RenderBaseDatos = ({dataBase}) => {
   
   return (
     <section className="d-flex flex-column align-items-center w-100">
@@ -27,4 +27,4 @@ const SectionBaseDatos = ({dataBase}) => {
   );
 };
 
-export default SectionBaseDatos;
+export default RenderBaseDatos;

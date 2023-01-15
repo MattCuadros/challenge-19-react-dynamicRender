@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SectionBaseDatos from "./components/SectionBaseDatos";
+import RenderBaseDatos from "./components/RenderBaseDatos";
 import { BaseColaboradores } from "./components/baseDatos";
 import FilterData from "./components/FilterData";
 import Form from "./components/Form";
@@ -67,7 +67,7 @@ const App = () => {
 
       {filtered && search != "" ? <FilterData filtered={filtered} /> : null}
 
-      <SectionBaseDatos dataBase={dataBase} />
+      <RenderBaseDatos dataBase={dataBase} />
     </div>
   );
 };
