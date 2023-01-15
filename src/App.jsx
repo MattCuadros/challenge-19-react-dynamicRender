@@ -4,6 +4,7 @@ import { BaseColaboradores } from "./components/baseDatos";
 import FilterData from "./components/FilterData";
 import Form from "./components/Form";
 import Navbar from "./components/Navbar";
+import Swal from 'sweetalert2';
 
 const App = () => {
   const [dataBase, setDataBase] = useState(BaseColaboradores);
@@ -12,22 +13,36 @@ const App = () => {
   const [filtered, setFilter] = useState(null);
   const [search, setSearch] = useState("");
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (name.trim() === "" || !isNaN(name) ) {
-      alert("Debe ingresar los datos");
+      Swal.fire(
+        '¡El nombre es Incorrecto!',
+        'Ingresaste un Número o el campo está vacío',
+        'error'
+      )
       return;
     }
 
     if (mail.trim() === ""){
-      alert ("Debe ingresar un email correcto")
+      Swal.fire(
+        '¡El E-mail es Incorrecto!',
+        'El campo está vacío',
+        'error'
+      )
       return
     }
 
     setDataBase([...dataBase, { id: Date.now(), nombre: name, correo: mail }]);
     setName("");
     setMail("");
+    Swal.fire(
+      'Buen trabajo!',
+      'Ingresaste un nuevo Colaborador!',
+      'success'
+    )
   };
 
   const handleFilter = (e) => {
